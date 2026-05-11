@@ -1,0 +1,77 @@
+body{
+    margin:0;
+    font-family:"Arial";
+    background:linear-gradient(135deg,#ffe0ec,#ffd6a5);
+}
+
+/* 容器卡片 */
+.card{
+    background:white;
+    width:90%;
+    max-width:520px;
+    margin:25px auto;
+    padding:25px;
+    border-radius:22px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* 標題 */
+h1,h2{
+    text-align:center;
+    color:#ff6b81;
+}
+
+/* 輸入欄 */
+input,textarea,select{
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    border-radius:12px;
+    border:1px solid #ddd;
+    box-sizing:border-box;
+}
+
+/* 按鈕 */
+.btn{
+    display:block;
+    text-align:center;
+    padding:12px;
+    margin-top:12px;
+    border-radius:12px;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    border:none;
+    cursor:pointer;
+}
+
+/* 顏色按鈕 */
+.blue{ background:#74b9ff; }
+.pink{ background:#ff9ff3; }
+.green{ background:#55efc4; }
+
+.blue:hover{ background:#4da3ff; }
+.pink:hover{ background:#ff6bcb; }
+.green:hover{ background:#00b894; }
+
+/* 留言卡 */
+.post{
+    background:white;
+    padding:15px;
+    margin:15px auto;
+    width:90%;
+    max-width:520px;
+    border-radius:20px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.1);
+}
+
+/* 頭貼 */
+.avatar{
+    font-size:22px;
+}
+
+/* 小字 */
+.small{
+    font-size:12px;
+    color:#888;
+}
