@@ -1,34 +1,69 @@
 <?php
-// Insert new discussion into database
 
 header('Content-Type: text/html; charset=utf-8');
-require 'db_config.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    die('Invalid request method.');
+require_once 'db_config.php';
+
+/*
+必須登入
+*/
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
 }
 
-$author = isset($_POST['author']) ? trim($_POST['author']) : '';
+/*
+只允許 POST
+*/
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die('Invalid request method');
+}
+
+/*
+抓登入者
+*/
+$userId = $_SESSION['user']['id'];
+
+/*
+資料接收
+*/
 $title = isset($_POST['title']) ? trim($_POST['title']) : '';
 $content = isset($_POST['content']) ? trim($_POST['content']) : '';
 
-// Validation
-if (empty($author) || empty($title) || empty($content)) {
-    die('所有欄位都必須填寫。<br><a href="index.php">返回</a>');
+/*
+驗證
+*/
+if ($title == '' || $content == '') {
+    die('請填寫完整 <a href="index.php">返回</a>');
 }
 
-// Limit input length
-$author = substr($author, 0, 100);
+/*
+長度限制
+*/
 $title = substr($title, 0, 200);
-$content = substr($content, 0, 10000);
+$content = substr($content, 0, 2000);
 
+/*
+寫入資料
+*/
 try {
-    $stmt = $pdo->prepare('INSERT INTO news (title, content, author) VALUES (?, ?, ?)');
-    $stmt->execute([$title, $content, $author]);
 
-    // Redirect to homepage
-    header('Location: index.php');
+    $stmt = $pdo->prepare("
+        INSERT INTO news (user_id, title, content)
+        VALUES (?, ?, ?)
+    ");
+
+    $stmt->execute([
+        $userId,
+        $title,
+        $content
+    ]);
+
+    header("Location: index.php");
     exit;
+
 } catch (PDOException $e) {
-    die('發表討論失敗: ' . $e->getMessage() . '<br><a href="index.php">返回</a>');
+
+    die('發表失敗：' . $e->getMessage());
+
 }
